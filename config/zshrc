@@ -1,0 +1,65 @@
+source "$ZFOLDER/zshenv"
+source "$ZFOLDER/modules/p10k/instant.zsh"
+
+export EDITOR='nvim'
+export KEYTIMEOUT=5
+
+export HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/.zsh_history"
+export HISTSIZE=100000000
+export SAVEHIST=$HISTSIZE
+export HISTORY_IGNORE='(clear)'
+
+export ZCOMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/.zcompdump"
+export ZCOMPCACHE="${XDG_CACHE_HOME:-$HOME/.cache}/.zcompcache"
+
+setopt no_auto_remove_slash
+setopt interactive_comments
+
+setopt share_history
+setopt extended_history
+setopt hist_find_no_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+
+alias ls='eza --icons'
+alias ll='eza --icons --long --all'
+alias lt='eza --icons --tree --level=5'
+alias wl='wl-copy'
+alias dh='rm $HISTFILE && history -p'
+alias vim='nvim'; alias svim='sudo -Es nvim'
+alias v='fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs -r nvim'
+alias t='trash'
+alias gl='git log --oneline'
+
+autoload -Uz compinit; compinit -d "$ZCOMPDUMP"
+zmodload zsh/complist
+
+zstyle ':compinstall'  filename "$ZDOTDIR/.zshrc"
+zstyle ':completion:*' cache-path "$ZCOMPCACHE"
+zstyle ':completion:*' rehash true
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+r:|[._-]=* r:|=*' '+l:|=*'
+
+bindkey -M menuselect '/' accept-line
+
+source "$ZFOLDER/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" # 1
+source "$ZFOLDER/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh"                # 2 VIM MODE
+source "$ZFOLDER/modules/keys/normalize.zsh"                                  # 3
+source "$ZFOLDER/modules/zsh-autosuggestions.zsh"                             # 4
+
+source "$ZFOLDER/plugins/zsh-completions/zsh-completions.plugin.zsh"
+source "$ZFOLDER/modules/fzf.zsh"
+source "$ZFOLDER/modules/fancy-ctrl-z.zsh"
+source "$ZFOLDER/modules/clear-backbuffer.zsh"
+source "$ZFOLDER/modules/subdir.zsh"
+
+ZSH_HIGHLIGHT_STYLES[comment]='fg=8,bold'
+
+path+=("$HOME/.local/share/fnm")
+
+eval "$(zoxide init zsh)"
+eval "$(fnm env --use-on-cd)"
+
+# End of file
+source "$ZFOLDER/modules/p10k/import.zsh"
+
