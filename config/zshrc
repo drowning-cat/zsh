@@ -1,0 +1,68 @@
+source "$ZFOLDER/zshenv"
+source "$ZFOLDER/plugins/p10k/instant.zsh"
+
+export EDITOR='nvim'
+export KEYTIMEOUT=5
+
+export HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/.zsh_history"
+export HISTSIZE=100000000
+export SAVEHIST=$HISTSIZE
+export HISTORY_IGNORE='(clear)'
+
+export ZCOMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/.zcompdump"
+export ZCOMPCACHE="${XDG_CACHE_HOME:-$HOME/.cache}/.zcompcache"
+
+setopt no_auto_remove_slash
+setopt interactive_comments
+
+setopt share_history
+setopt extended_history
+setopt hist_find_no_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+
+autoload -Uz compinit; compinit -d "$ZCOMPDUMP"
+zmodload zsh/complist
+
+zstyle ':compinstall'  filename "$ZDOTDIR/.zshrc"
+zstyle ':completion:*' cache-path "$ZCOMPCACHE"
+zstyle ':completion:*' rehash true
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+r:|[._-]=* r:|=*' '+l:|=*'
+
+source "$ZFOLDER/plugins/zsh-vim-mode.zsh"   # 1 -- keymaps: vim
+source "$ZFOLDER/plugins/keys/normalize.zsh" # 2 -- keymaps: default
+
+bindkey -M menuselect '/' accept-line  # /
+bindkey -M menuselect '^Y' accept-line # Ctrl + y
+
+source "$ZFOLDER/submods/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$ZFOLDER/submods/zsh-completions/zsh-completions.plugin.zsh"
+source "$ZFOLDER/plugins/zsh-autosuggestions.zsh"
+source "$ZFOLDER/plugins/clear-backbuffer.zsh"
+source "$ZFOLDER/plugins/fancy-ctrl-z.zsh"
+source "$ZFOLDER/plugins/fzf.zsh"
+source "$ZFOLDER/plugins/subdir.zsh"
+
+ZSH_HIGHLIGHT_STYLES[comment]='fg=8,bold'
+
+path+=("$HOME/.local/share/fnm")
+
+eval "$(fnm env --use-on-cd)"
+eval "$(zoxide init zsh)"
+eval "$(gh completion -s zsh)"
+
+alias ls='eza --icons'
+alias ll='eza --icons --long --all'
+alias lt='eza --icons --tree --level=5'
+alias wl='wl-copy'
+alias dh='rm $HISTFILE && history -p'
+alias v='nvim'; alias vi='v'; alias vim='v'
+alias svim='sudo -Es nvim'; alias sv='svim'
+alias fv='fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs -r nvim'
+alias t='trash'
+alias gl='git log --oneline'
+
+# End of file
+source "$ZFOLDER/plugins/p10k/import.zsh"
+
