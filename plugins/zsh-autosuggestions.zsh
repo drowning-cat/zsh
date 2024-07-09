@@ -10,7 +10,12 @@ smart-partial-accept-completion() {
 zle -N smart-partial-accept-completion
 
 ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(smart-partial-accept-completion)
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=239'
+
+if [[ -z "$XDG_CURRENT_DESKTOP" ]]; then
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=3'
+else
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=239'
+fi
 
 for m in emacs viins vicmd; do
   bindkey -M "$m" "${terminfo[kcuf1]:-^[[C}" smart-partial-accept-completion # Right

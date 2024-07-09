@@ -28,7 +28,7 @@ zstyle ':compinstall'  filename "$ZDOTDIR/.zshrc"
 zstyle ':completion:*' cache-path "$ZCOMPCACHE"
 zstyle ':completion:*' rehash true
 zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+r:|[._-]=* r:|=*' '+l:|=*'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 source "$ZFOLDER/plugins/zsh-vim-mode.zsh"   # 1 -- keymaps: vim
 source "$ZFOLDER/plugins/keys/normalize.zsh" # 2 -- keymaps: default
@@ -61,7 +61,15 @@ alias v='nvim'; alias vi='v'; alias vim='v'
 alias svim='sudo -Es nvim'; alias sv='svim'
 alias fv='fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs -r nvim'
 alias t='trash'
+alias g='git'
+alias ga='git add -A'
+alias gc='git commit'
+alias gd='git diff'
 alias gl='git log --oneline'
+alias gp='git push'
+alias gs='git status'
+alias :q='exit'
+-() cd -
 
 # End of file
 source "$ZFOLDER/plugins/p10k/import.zsh"

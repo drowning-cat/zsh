@@ -1,10 +1,3 @@
-if [[ -f "$HOME/.fzf.zsh" ]]; then
-  source "$HOME/.fzf.zsh"
-else
-  source /usr/share/fzf/completion.zsh
-  source /usr/share/fzf/key-bindings.zsh
-fi
-
 export FZF_DEFAULT_COMMAND="fd --type file --hidden --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type directory"
@@ -31,4 +24,6 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   eval "$FZF_ALT_C_COMMAND $1"
 }
+
+eval "$(fzf --zsh)"
 
