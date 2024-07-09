@@ -51,7 +51,7 @@ trap 'heading "Exit cleanup" && cleanup' ERR
 if ! grep "^$USER:" /etc/passwd | grep -q "/bin/zsh"; then
   heading "0. Init zsh shell"
     if ask_yes "Change current user's login shell to 'zsh'?" '\n'; then
-      chsh -s `which zsh`
+      chsh -s /bin/zsh
       if [ -f "$HOME/.bash_profile" ] ||
          [ -f "$HOME/.bashrc" ] ||
          [ -f "$HOME/.bash_login" ] ||
