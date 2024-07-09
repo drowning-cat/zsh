@@ -1,12 +1,12 @@
-export SUBDIR=()
-export SUBDIR_BREAKS=('/' "$HOME")
+typeset -g SUBDIR=()
+typeset -g SUBDIR_BREAKS=('/' "$HOME")
 
 _subdir.cd() {
   SUBDIR_INNER_CD=true
   builtin cd "$@" || return 1
   unset SUBDIR_INNER_CD
 
-  local precmd
+  local precmd=
   for precmd in "$precmd_functions[@]"; do
     $precmd
   done
@@ -23,7 +23,7 @@ subdir.prev() {
   local current="${1:-$PWD}"
   local parent=$(dirname "$current")
 
-  local b
+  local b=
   for b in "$SUBDIR_BREAKS[@]"; do
     if [[ "$b" -ef "$current" ]]; then
       return 0
@@ -47,13 +47,26 @@ subdir.next() {
   fi
 }
 
-autoload -U add-zsh-hook; add-zsh-hook chpwd _subdir.cd.chpwd
+autoload -U add-zsh-hook
+add-zsh-hook chpwd _subdir.cd.chpwd
 
 zle -N subdir.prev
 zle -N subdir.next
 
+for i in {1..5}; do
+  # alias ..='repeat 1 subdir.prev'
+  # alias ...='repeat 2 subdir.prev'
+  # ...
+  alias $(repeat $((i + 1)) printf '.')="repeat $i subdir.prev"
+
+  # alias ..1='repeat 1 subdir.prev'
+  # alias ..2='repeat 2 subdir.prev'
+  # ...
+  alias ..$i="repeat $i subdir.prev"
+done
+
 for m in emacs viins vicmd; do
-  bindkey -M "$m" "${terminfo[kRIT5]:-^[[1;5C}" subdir.next # Ctrl + Right
-  bindkey -M "$m" "${terminfo[kLFT5]:-^[[1;5D}" subdir.prev # Ctrl + Left
+  bindkey -M $m "${terminfo[kDN5]:-^[[1;5B}" subdir.prev # Ctrl + Down
+  bindkey -M $m "${terminfo[kUP5]:-^[[1;5A}" subdir.next # Ctrl + Up
 done
 

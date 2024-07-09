@@ -2,14 +2,14 @@ source "${0:A:h}/_keys.zsh"
 source "${0:A:h}/_bind.zsh"
 
 () {
-  local NO_UNBIND=('-' '=' '/' '_' '+' '?')
+  local PREVENT_UNBIND=('-' '=' '/' '_' '+' '?')
   local keyname= keyseq= u=
 
   unbound-key() { zle undefined-key }
   zle -N unbound-key
 
   for keyname keyseq in "${(@kv)keys}"; do
-    for u in "$NO_UNBIND[@]"; do
+    for u in "$PREVENT_UNBIND[@]"; do
       [[ "$keyseq"  == "$u" ]] ||
       [[ "$keyname" == "$u" ]] ||
       [[ "$keyname" == *"-$u" ]] && continue 2
@@ -17,7 +17,7 @@ source "${0:A:h}/_bind.zsh"
     bind -a "$keyseq" unbound-key
   done
 
-  for key in 'e' 't' 'y' 'o' 'p' 'a' 'x' 'v' 'b' 'n' ']'; do
+  for key in 'e' 't' 'y' 'o' 'p' 'a' 'f' 'k' 'x' 'v' 'b' 'n' ']'; do
     bind -a "^$key"  unbound-key
   done
 
@@ -41,5 +41,10 @@ source "${0:A:h}/_bind.zsh"
   bind -a  "$keys[PageDown]"  end-of-buffer-or-history
   bind -ei "$keys[Tab]"       complete-word
   bind -ei "$keys[Shift-Tab]" reverse-menu-complete
+
+  if [[ "$TERM" == 'xterm'* ]]; then
+    bind -cv '^H' vi-backward-char
+    bind -ei '^H' backward-delete-char
+  fi
 }
 

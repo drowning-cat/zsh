@@ -1,15 +1,21 @@
-[submodule "powerlevel10k"]
-	path = config/submods/powerlevel10k
+[submodule "submods/fzf-tab"]
+	path = submods/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab.git
+[submodule "submods/powerlevel10k"]
+	path = submods/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k
-[submodule "zsh-autosuggestions"]
-	path = config/submods/zsh-autosuggestions
+[submodule "submods/zsh-autosuggestions"]
+	path = submods/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
-[submodule "zsh-completions"]
-	path = config/submods/zsh-completions
+[submodule "submods/zsh-completions"]
+	path = submods/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
-[submodule "zsh-syntax-highlighting"]
-	path = config/submods/zsh-syntax-highlighting
+[submodule "submods/zsh-syntax-highlighting"]
+	path = submods/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
-[submodule "zsh-vim-mode"]
-	path = config/submods/zsh-vim-mode
-	url = https://github.com/softmoth/zsh-vim-mode
+[submodule "submods/zsh-system-clipboard"]
+	path = submods/zsh-system-clipboard
+	url = https://github.com/kutsan/zsh-system-clipboard.git
+[submodule "submods/zsh-vi-mode"]
+	path = submods/zsh-vi-mode
+	url = https://github.com/jeffreytse/zsh-vi-mode.git

@@ -4,6 +4,6 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 
 for m in emacs viins vicmd; do
-  bindkey -M "$m" '^Z' fancy-ctrl-z # Ctrl + z
+  bindkey -M $m '^Z' fancy-ctrl-z # Ctrl + z
 done
 

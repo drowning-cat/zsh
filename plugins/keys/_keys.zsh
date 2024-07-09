@@ -4,12 +4,12 @@
   local keyname= __= s= a= as= c= cs= ca= cas=
   local mod= keyseq= key=
 
-  if (( "${+terminfo[smkx]}" && "${+terminfo[rmkx]}" )); then
-	  autoload -Uz add-zle-hook-widget
-	  function zle-application-mode-start { echoti smkx }
-	  function zle-application-mode-stop { echoti rmkx }
-	  add-zle-hook-widget -Uz zle-line-init zle-application-mode-start
-	  add-zle-hook-widget -Uz zle-line-finish zle-application-mode-stop
+  if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
+    autoload -Uz add-zle-hook-widget
+    function zle-app-mode-start { echoti smkx }
+    function zle-app-mode-stop { echoti rmkx }
+    add-zle-hook-widget -Uz zle-line-init zle-app-mode-start
+    add-zle-hook-widget -Uz zle-line-finish zle-app-mode-stop
   fi
 
   for keyname     __         s        a         as         c         cs        ca         cas  (
