@@ -6,7 +6,7 @@ clear-screen-and-scrollback() {
 zle -N clear-screen-and-scrollback
 
 for m in emacs viins vicmd; do
-  bindkey -M "$m" '^L' clear-screen-and-scrollback                     # Ctrl + l
-  bindkey -M "$m" "${terminfo[kf1]:-^[OP}" clear-screen-and-scrollback # F1
+  bindkey -M $m '^L' clear-screen-and-scrollback # Ctrl + l
+  bindkey -M $m "${terminfo[kf1]:-^[OP}" clear-screen-and-scrollback # F1
 done
 

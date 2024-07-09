@@ -1,3 +1,0 @@
-ZFOLDER="${0:A:h}"
-ZDOTDIR="$ZFOLDER/.zdotdir"
-
