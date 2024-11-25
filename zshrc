@@ -60,16 +60,15 @@ if [[ -z "$XDG_CURRENT_DESKTOP" ]]; then
   alias ll='eza --long --all'
   alias lt='eza --tree --level=5'
 else
-  alias ls='eza --icons'
-  alias ll='eza --icons --long --all'
-  alias lt='eza --icons --tree --level=5'
+  alias ls='eza --icons auto'
+  alias ll='eza --icons auto --long --all'
+  alias lt='eza --icons auto --tree --level=5'
 fi
 
 alias wl='wl-copy'
 alias rh='rm $HISTFILE'
 alias v='nvim'; alias vi='v'; alias vim='v'
 alias svim='sudo -Es nvim'; alias sv='svim'
-alias fv='fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs -r nvim'
 alias t='trash'
 alias g='git'
 alias ga='git add -A'

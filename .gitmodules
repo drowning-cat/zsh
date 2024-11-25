@@ -16,3 +16,6 @@
 [submodule "submods/zsh-vim-mode"]
 	path = submods/zsh-vim-mode
 	url = https://github.com/softmoth/zsh-vim-mode
+[submodule "submods/fzf-tab"]
+	path = submods/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab.git

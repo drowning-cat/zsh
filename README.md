@@ -158,13 +158,9 @@ File itself
 `~/.config/zsh/plugins/fzf.zsh`
 
 ```sh #link ~/.config/zsh/plugins/fzf.zsh
-1: export FZF_DEFAULT_COMMAND="fd --type file --hidden --exclude .git"
-```
-
-`~/.config/zsh/zshrc`
-
-```sh #link ~/.config/zsh/zshrc
-72: alias fv='fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs -r nvim'
+1: @fd() {
+2:   print -rn "fd . --hidden --exclude .git $@ | sed 's|^$HOME|~|;s|^./||'"
+3: }
 ```
 
 </details>
@@ -179,9 +175,9 @@ File itself
 `~/.config/zsh/plugins/fzf.zsh`
 
 ```sh #link ~/.config/zsh/plugins/fzf.zsh
-20: export FZF_CTRL_T_OPTS="--preview '[[ -d {} ]] && tree -C {} || bat --style numbers --color always --line-range :500 {}'"
-21: export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
-22: export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree ls"
+37: export FZF_CTRL_T_OPTS="--preview '[[ -d {} ]] && tree -C {} || bat --style numbers --color always --line-range :500 {}'"
+38: export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+39: export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree ls"
 ```
 
 </details>
@@ -196,9 +192,9 @@ File itself
 `~/.config/zsh/zshrc`
 
 ```sh #link ~/.config/zsh/zshrc
-63: alias ls='eza --icons'
-64: alias ll='eza --icons --long --all'
-65: alias lt='eza --icons --tree --level=5'
+63: alias ls='eza --icons auto'
+64: alias ll='eza --icons auto --long --all'
+65: alias lt='eza --icons auto --tree --level=5'
 ```
 
 </details>
@@ -279,7 +275,6 @@ File itself
 ...
 70: alias v='nvim'; alias vi='v'; alias vim='v'
 71: alias svim='sudo -Es nvim'; alias sv='svim'
-72: alias fv='fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs -r nvim'
 ```
 
 </details>
@@ -309,7 +304,7 @@ File itself
 `~/.config/zsh/zshrc`
 
 ```sh #link ~/.config/zsh/zshrc
-73: alias t='trash'
+72: alias t='trash'
 ```
 
 </details>
@@ -446,7 +441,6 @@ rm -rf ".fnm/"
 | `rh`             | `rm $HISTFILE`                                                                  |
 | `v`, `vi`, `vim` | `nvim`                                                                          |
 | `svim`, `sv`     | `sudo -Es nvim`                                                                 |
-| `fv`             | `fd --type f --hidden --exclude .git \| fzf-tmux -p --reverse \| xargs -r nvim` |
 | `t`              | `trash`                                                                         |
 | `g`              | `git`                                                                           |
 | `ga`             | `git add -A`                                                                    |
