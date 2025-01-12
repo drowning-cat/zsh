@@ -2,6 +2,8 @@ source "$ZFOLDER/zshenv"
 source "$ZFOLDER/plugins/p10k/instant.zsh"
 
 export EDITOR='nvim'
+export VISUAL='nvim'
+export MANPAGER='nvim +Man!'
 export KEYTIMEOUT=5
 
 export HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/.zsh_history"
@@ -22,7 +24,7 @@ setopt hist_find_no_dups
 setopt hist_ignore_dups
 setopt hist_ignore_space
 
-autoload -Uz compinit; compinit -d "$ZCOMPDUMP"
+autoload -Uz compinit; compinit -C; (compinit &)
 zmodload zsh/complist
 
 zstyle ':compinstall'  filename "$ZDOTDIR/.zshrc"
@@ -37,45 +39,42 @@ source "$ZFOLDER/plugins/zsh-syntax-highlighting.zsh" # 2
 source "$ZFOLDER/plugins/keys/normalize.zsh"          # 3.1
 source "$ZFOLDER/plugins/zsh-vi-mode.zsh"             # 3.2
 
-source "$ZFOLDER/submods/zsh-completions/zsh-completions.plugin.zsh"
-source "$ZFOLDER/plugins/fzf.zsh"
+# if [[ -n $NVIM ]]; then                             # # 3.3
+#   bindkey -e                                        # #
+# fi                                                  # #
+
+source "$ZFOLDER/plugins/dotfiles.sh"
 source "$ZFOLDER/plugins/clear-backbuffer.zsh"
 source "$ZFOLDER/plugins/fancy-ctrl-z.zsh"
+source "$ZFOLDER/plugins/fzf.zsh"
 source "$ZFOLDER/plugins/subdir.zsh"
+source "$ZFOLDER/submods/zsh-completions/zsh-completions.plugin.zsh"
 
 bindkey -M menuselect '/' accept-line  # /
 bindkey -M menuselect '^Y' accept-line # Ctrl + y
 
+bindkey '^J' menu-complete # Ctrl + j
+
+bindkey -M menuselect '^H' vi-backward-char        # Ctrl + h
+bindkey -M menuselect '^J' vi-down-line-or-history # Ctrl + j
+bindkey -M menuselect '^K' vi-up-line-or-history   # Ctrl + k
+bindkey -M menuselect '^L' vi-forward-char         # Ctrl + l
+
+function ins-newline() LBUFFER+=$'\n'
+zle -N ins-newline
+bindkey '^[[27;2;13~' ins-newline # Shift + Enter (tmux)
+bindkey '^[[13;2u' ins-newline    # Shift + Enter (terminal)
+
 path+=("$HOME/.local/share/fnm")
 
-eval "$(fnm env --use-on-cd)"
-eval "$(zoxide init zsh)"
-eval "$(gh completion -s zsh)"
+(( $+commands[keychain] )) && eval "$(keychain --eval --quiet --timeout 60)"
 
-if [[ -z "$XDG_CURRENT_DESKTOP" ]]; then
-  alias ls='eza'
-  alias ll='eza --long --all'
-  alias lt='eza --tree --level=5'
-else
-  alias ls='eza --icons auto'
-  alias ll='eza --icons auto --long --all'
-  alias lt='eza --icons auto --tree --level=5'
-fi
+(( $+commands[fnm] )) && eval "$(fnm env --use-on-cd)"
+(( $+commands[bob] )) && eval "$(bob complete zsh)"
+(( $+commands[gh] )) && eval "$(gh completion -s zsh)"
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
 
-alias ch='chezmoi'
-alias wl='wl-copy'
-alias v='nvim'; alias vi='v'; alias vim='v'
-alias svim='sudo -Es nvim'; alias sv='svim'
-alias t='trash'
-alias g='git'
-alias ga='git add -A'
-alias gc='git commit'
-alias gd='git diff'
-alias gl='git log --oneline'
-alias gp='git push'
-alias gs='git status'
-alias :q='exit'
--() cd -
+source "$ZFOLDER/zalias.zsh"
 
 # End of file
 source "$ZFOLDER/plugins/p10k/import.zsh"

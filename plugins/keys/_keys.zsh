@@ -4,7 +4,7 @@
   local keyname= __= s= a= as= c= cs= ca= cas=
   local mod= keyseq= key=
 
-  if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
+  if (( "${+terminfo[smkx]}" && "${+terminfo[rmkx]}" )); then
     autoload -Uz add-zle-hook-widget
     function zle-app-mode-start { echoti smkx }
     function zle-app-mode-stop { echoti rmkx }
