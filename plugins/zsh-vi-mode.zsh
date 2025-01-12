@@ -83,3 +83,33 @@ zvm_bindkey vicmd  ' P' zvm_custom_vi_put_clipboard_before
 zvm_bindkey visual ' p' zvm_custom_vi_replace_selection_with_clipboard
 zvm_bindkey visual ' P' zvm_custom_vi_replace_selection_with_clipboard
 
+zvm_custom_enter_viins() {
+  zvm_exit_visual_mode
+  zvm_select_vi_mode $ZVM_MODE_INSERT
+}
+zvm_custom_enter_viins_right() {
+  zvm_exit_visual_mode
+  zle vi-forward-char
+  zvm_select_vi_mode $ZVM_MODE_INSERT
+}
+zvm_custom_enter_viins_start() {
+  zvm_exit_visual_mode
+  zle vi-beginning-of-line
+  zvm_select_vi_mode $ZVM_MODE_INSERT
+}
+zvm_custom_enter_viins_end() {
+  zvm_exit_visual_mode
+  zle vi-end-of-line
+  zvm_select_vi_mode $ZVM_MODE_INSERT
+}
+
+zvm_define_widget zvm_custom_enter_viins
+zvm_define_widget zvm_custom_enter_viins_right
+zvm_define_widget zvm_custom_enter_viins_start
+zvm_define_widget zvm_custom_enter_viins_end
+
+zvm_bindkey visual 'i' zvm_custom_enter_viins
+zvm_bindkey visual 'a' zvm_custom_enter_viins_right
+zvm_bindkey visual 'I' zvm_custom_enter_viins_start
+zvm_bindkey visual 'A' zvm_custom_enter_viins_end
+
