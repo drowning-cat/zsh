@@ -45,8 +45,10 @@ source "$ZFOLDER/submods/fzf-tab/fzf-tab.zsh"
 
 for m in emacs viins vicmd; do
   bindkey -M $m '\t'   fzf-completion   # Tab
-  bindkey -M $m '^[\t' fzf-tab-complete # Alt + Tab
-  bindkey -M $m '^_'   fzf-tab-complete # Ctrl + /
+  bindkey -M $m '^[`'  fzf-tab-complete # Alt + `
+  if [[ -n "$XDG_CURRENT_DESKTOP" ]]; then
+    bindkey -M $m '^[\t' fzf-tab-complete # Alt + Tab
+  fi
 done
 
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
