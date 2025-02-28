@@ -57,7 +57,7 @@ bindkey -M menuselect '^L' vi-forward-char         # Ctrl + l
 
 path+=("$HOME/.local/share/fnm")
 
-(( $+commands[keychain] )) && eval "$(keychain --eval --quiet --confhost --timeout 60)"
+# (( $+commands[keychain] )) && eval "$(keychain --eval --quiet --confhost --timeout 60)"
 
 (( $+commands[fnm] )) && eval "$(fnm env --use-on-cd)"
 (( $+commands[gh] )) && eval "$(gh completion -s zsh)"
