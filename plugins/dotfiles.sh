@@ -30,6 +30,9 @@ dots-undo() {
   dots checkout -f "$@"
 }
 dots-save() {
+  dots add ~/.config/hypr/
+  dots add ~/.config/zsh/
+  dots add ~/.config/nvim/
   dots add -u
   dots commit -m "$(dots status --porcelain)" && dots push -u
 }

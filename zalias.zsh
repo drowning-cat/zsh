@@ -18,16 +18,9 @@ alias q='exit'
 
 alias update='paru -Syyu && flatpack update'
 
-alias v='nvim'
-for v in 'vi' 'vm' 'vim'; do alias $v='v'; done
+for v in 'v' 'vi' 'vm' 'vim'; do alias $v='nvim'; done
 alias svim='sudo -Es nvim'
 alias sv='svim'
-alias lvim='nvim -c "lua ms = require(\"mini.sessions\"); ms.read(ms.get_latest())"'
-alias lv='lvim'
-
-alias v='nvim'
-alias vi='v'
-alias vim='v'
 
 nvim-open() {
   local open=($(< /dev/stdin))

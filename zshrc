@@ -40,31 +40,14 @@ source "$ZFOLDER/plugins/zsh-syntax-highlighting.zsh" # 2
 source "$ZFOLDER/plugins/keys/normalize.zsh"          # 3.1
 source "$ZFOLDER/plugins/zsh-vi-mode.zsh"             # 3.2
 
-# if [[ -n $NVIM ]]; then                             # # 3.3
-#   bindkey -e                                        # #
-# fi                                                  # #
+# if [[ -n $NVIM ]]; then                             # 3.3
+#   bindkey -e                                        #
+# fi                                                  #
 
 source "$ZFOLDER/plugins/dotfiles.sh"
-source "$ZFOLDER/plugins/clear-backbuffer.zsh"
-source "$ZFOLDER/plugins/fancy-ctrl-z.zsh"
 source "$ZFOLDER/plugins/fzf.zsh"
 source "$ZFOLDER/plugins/subdir.zsh"
 source "$ZFOLDER/submods/zsh-completions/zsh-completions.plugin.zsh"
-
-bindkey -M menuselect '/' accept-line  # /
-bindkey -M menuselect '^Y' accept-line # Ctrl + y
-
-bindkey '^J' menu-complete # Ctrl + j
-
-bindkey -M menuselect '^H' vi-backward-char        # Ctrl + h
-bindkey -M menuselect '^J' vi-down-line-or-history # Ctrl + j
-bindkey -M menuselect '^K' vi-up-line-or-history   # Ctrl + k
-bindkey -M menuselect '^L' vi-forward-char         # Ctrl + l
-
-function ins-newline() LBUFFER+=$'\n'
-zle -N ins-newline
-bindkey '^[[27;2;13~' ins-newline # Shift + Enter (tmux)
-bindkey '^[[13;2u' ins-newline    # Shift + Enter (terminal)
 
 path+=("$HOME/.local/share/fnm")
 
@@ -75,6 +58,7 @@ path+=("$HOME/.local/share/fnm")
 (( $+commands[gh] )) && eval "$(gh completion -s zsh)"
 (( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
 
+source "$ZFOLDER/zbind.zsh"
 source "$ZFOLDER/zalias.zsh"
 
 # End of file
